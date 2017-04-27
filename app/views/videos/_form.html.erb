@@ -1,0 +1,49 @@
+<%= form_for @video, :html => { :class => "form-horizontal video", :multipart => true } do |f| %>
+
+  <% if @video.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@video.errors.count, "error") %> prohibited this video from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @video.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :title, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:title) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :description, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:description) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :media, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.file_field :media, :class => 'form-control' %>
+      <%= f.hidden_field :media_cache %>
+    </div>
+    <%=f.error_span(:media) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                videos_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>
